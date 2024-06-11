@@ -204,7 +204,7 @@
                                             var form = $(this).serialize();
                                             $.ajax({
                                                 type:"post",
-                                                url:"requests",
+                                                url:"request",
                                                 data: form,
                                                 success:function(response){
                                                     console.log(response)
@@ -351,7 +351,7 @@
                                         </div>
                                     </div>
                                     <div class="team-content">
-                                        <h3 class="team-title box-title"><a href="team-details.html">{{$member->name}}</a></h3>
+                                        <h3 class="team-title box-title"><a href="{{ route('team_details', $member->id)}}">{{$member->name}}</a></h3>
                                         <span class="team-desig">{{$member->title->title}}</span>
                                     </div>
                                 </div>

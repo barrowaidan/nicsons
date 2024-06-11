@@ -43,6 +43,27 @@
                             </div>
                             <p class="form-messages mb-0 mt-3"></p>
                         </form>
+                        <script>
+                            $(document).ready(function(){
+                                $('#form_data').submit(function(event) {
+                                    event.preventDefault();
+                                    var form = $(this).serialize();
+                                    $.ajax({
+                                        type:"post",
+                                        url:"requests",
+                                        data: form,
+                                        success:function(response){
+                                            console.log(response)
+                                            alert(response.message);
+                                            window.location.reload();
+                                            },
+                                        error:function(){
+                                            alert('something went wrong');
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
                     </div>
                 </div>
                 <div class="col-xl-4">
@@ -55,8 +76,7 @@
                             <div class="contact-info_icon"><i class=""><img src="{{ asset('assets/img/icon/location_5.svg')}}"
                                         alt=""></i></div>
                             <div class="media-body">
-                                <h4 class="contact-info_title">Office Address</h4><span class="contact-info_text">3891.
-                                    Location</span>
+                                <h4 class="contact-info_title">Office Address</h4><span class="contact-info_text">{{$company[0]->physical_address}}</span>
                             </div>
                         </div>
                         <div class="contact-info">
@@ -64,7 +84,7 @@
                             </div>
                             <div class="media-body">
                                 <h4 class="contact-info_title">Phone Number</h4><span class="contact-info_text"><a
-                                        href="tel:+255717253052">+255 (717) 253 052</a></span>
+                                        href="tel:{{$company[0]->phone_no}}">{{$company[0]->phone_no}}</a></span>
                             </div>
                         </div>
                         <div class="contact-info">
@@ -72,24 +92,21 @@
                             </div>
                             <div class="media-body">
                                 <h4 class="contact-info_title">Email Address</h4><span class="contact-info_text"><a
-                                        href="mailto:quick.help@gmail.com">info@nicsons.co.tz</a></span>
+                                        href="mailto:{{$company[0]->email}}">{{$company[0]->email}}</a></span>
                             </div>
                         </div>
                         <div class="themeholy-social author-social">
-                            <h4 class="info-title">Follow Us</h4><a href="https://www.facebook.com/"><i
-                                    class="fab fa-facebook-f"></i></a> <a href="https://www.twitter.com/"><i
-                                    class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/"><i
-                                    class="fab fa-linkedin-in"></i></a> <a href="https://www.behance.net/"><i
-                                    class="fa-brands fa-behance"></i></a>
+                            <h4 class="info-title">Follow Us</h4>
+                            @foreach ($company[0]->socialMedia as $media)
+                                <a href="{{$media->link}}"><i class="fab fa-{{$media->name}}"></i></a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="map-sec"><iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3644.7310056272386!2d89.2286059153658!3d24.00527418490799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fe9b97badc6151%3A0x30b048c9fb2129bc!2sAngfuzsoft!5e0!3m2!1sen!2sbd!4v1651028958211!5m2!1sen!2sbd"
-        allowfullscreen="" loading="lazy"></iframe>
+    <div class="map-sec"><iframe src="{{$company[0]->map_location}}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <!---->
 @endsection

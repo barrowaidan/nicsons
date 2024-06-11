@@ -9,7 +9,7 @@
                     <ul class="breadcumb-menu">
                         <li><a href="{{ route('home')}}">Home</a></li>
                         <li><a href="{{ route('about')}}">About</a></li>
-                        <li>Team Details</li>
+                        <li>Member Details</li>
                     </ul>
                 </div>
             </div>
@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-5">
-                    <div class="about-card_img mb-30"><img class="w-100" src="{{ asset('assets/img/team/team.jpg')}}"
+                    <div class="about-card_img mb-30"><img class="w-100" src="{{ asset('assets/img/'.$member->image)}}"
                             alt="team image"></div>
                     <div class="skill-card">
                         <h5 class="skill-card_title">Skills of Title</h5>
@@ -62,12 +62,13 @@
                     <div class="about-card">
                         <div class="about-card_wrapp">
                             <div class="about-card_content">
-                                <h5 class="about-card_title">Member Name</h5><span class="about-card_desig">Title</span>
+                                <h5 class="about-card_title">{{$member->name}}</h5><span class="about-card_desig">{{$member->title->title}}</span>
                             </div>
-                            <div class="themeholy-social team-social"><a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i
-                                        class="fab fa-instagram"></i></a> <a href="#"><i
-                                        class="fab fa-linkedin-in"></i></a></div>
+                            <div class="themeholy-social team-social">
+                                @foreach ($member->socialMedia as $media)
+                                    <a href="{{$media->link}}"><i class="fab fa-{{$media->name}}"></i></a>
+                                @endforeach
+                            </div>
                         </div>
                         <p class="about-card_text">Content about the member</p>
                         <div class="about-card_box">
@@ -77,7 +78,7 @@
                                     </div>
                                     <div class="media-body">
                                         <h4 class="info-box_title">Phone :</h4><a class="info-box_link"
-                                            href="tel:+255717253052">+255 (717) 253 052</a>
+                                            href="tel:{{$member->phone_no}}">{{$member->phone_no}}</a>
                                     </div>
                                 </div>
                                 <div class="info-box">
@@ -85,21 +86,20 @@
                                     </div>
                                     <div class="media-body">
                                         <h4 class="info-box_title">Email address :</h4><a class="info-box_link"
-                                            href="mailto:info@nicsons.co.tz">info@nicsons.co.tz</a>
+                                            href="mailto:{{$member->phone_no}}">{{$member->email}}</a>
                                     </div>
                                 </div>
                                 <div class="info-box">
                                     <div class="info-box_icon"><i><img src="{{ asset('assets/img/icon/location_3.svg')}}" alt=""></i>
                                     </div>
                                     <div class="media-body">
-                                        <h4 class="info-box_title">Office :</h4><span class="info-box_text">Location</span>
+                                        <h4 class="info-box_title">Office :</h4><span class="info-box_text">{{$member->company->physical_address}}</span>
                                     </div>
                                 </div>
                                 <div class="info-box">
                                     <div class="info-box_icon"><i><img src="assets/img/icon/clock.svg" alt=""></i></div>
                                     <div class="media-body">
-                                        <h4 class="info-box_title">Office Time :</h4><span class="info-box_text">Mon-Fri
-                                            : 09.00 am-05.00 pm</span>
+                                        <h4 class="info-box_title">Office Time :</h4><span class="info-box_text">{{$member->company->working_hours}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                                 <div class="form-group col-12"><i class="fa-regular fa-comments"></i> <textarea
                                         name="message" id="message" cols="30" rows="3" class="form-control style3"
                                         placeholder=" Message"></textarea></div>
-                                <div class="btn-group justify-content-center"><a href="about.html"
+                                <div class="btn-group justify-content-center"><a href="#"
                                         class="themeholy-btn btn-fw justify-content-center">Submit Now<span
                                             class="icon"><i class="fa-sharp fa-regular fa-paper-plane"></i></span></a>
                                 </div>

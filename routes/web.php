@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\WorkingProcessController;
 use App\Http\Controllers\Admin\CommentsController;
 use App\Http\Controllers\Admin\ServiceCommentController;
 use App\Http\Controllers\Admin\StatisticalController;
+use App\Http\Controllers\Admin\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,8 @@ Route::get('/news', [NewsPageController::class, 'index'])->name('news');
 Route::get('/new_details/{id}', [NewDetailsPageController::class, 'index'])->name('new_details');
 Route::get('/contact_us', [ContactUsPageController::class, 'index'])->name('contact_us');
 Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
+Route::get('/email', [EmailController::class, 'store'])->name('email');
+Route::post('/request', [RequestsController::class, 'store'])->name('request');
 
 /* Admin */
 Route::group(['middleware' => ['auth']], function(){
@@ -69,6 +72,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('/comment', CommentsController::class);
     Route::resource('/service_comment', ServiceCommentController::class);
     Route::resource('/statistical', StatisticalController::class);
+    Route::resource('/emails', EmailController::class);
 });
 
 

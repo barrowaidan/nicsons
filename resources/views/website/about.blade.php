@@ -162,7 +162,7 @@
                                     var form = $(this).serialize();
                                     $.ajax({
                                         type:"post",
-                                        url:"requests",
+                                        url:"{{ route('request')}}",
                                         data: form,
                                         success:function(response){
                                             console.log(response)

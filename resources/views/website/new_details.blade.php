@@ -24,19 +24,17 @@
                 <div class="col-xxl-8 col-lg-7">
                     <div class="themeholy-blog blog-single has-post-thumbnail">
                         <div class="blog-img themeholy-carousel" id="blogSlide3" data-slide-show="1" data-arrows="true">
-                            <a href="blog-details.html"><img src="{{ asset('assets/img/blog/blog-s-2-1.jpg')}}"
-                                    alt="Blog Image"></a><a href="blog-details.html"><img
-                                    src="{{ asset('assets/img/blog/blog-s-2-2.jpg')}}" alt="Blog Image"></a><a
-                                href="blog-details.html"><img src="{{ asset('assets/img/blog/blog-s-2-3.jpg')}}" alt="Blog Image"></a>
+                            <a href="blog-details.html"><img src="{{ asset('assets/img/'.$event->photo[0]->img_path)}}"
+                                    alt="Blog Image"></a>
                         </div>
                         <div class="blog-content">
-                            <div class="blog-meta"><a href="blog.html"><i class="fa-regular fa-user"></i>By-Admin</a> <a
-                                    href="blog.html"><i class="fa-light fa-calendar-days"></i>02 March, 2023</a> <a
-                                    href="blog-details.html"><i class="fa-regular fa-comments"></i>Comments(3)</a></div>
-                            <h2 class="blog-title">Future Is Bright When You Are More Prepared</h2>
-                            <p>Text.</p>
+                            <div class="blog-meta"><a href="{{ route('new_details', $event->id)}}"><i class="fa-regular fa-user"></i>By-Admin</a> <a
+                                    href="{{ route('new_details', $event->id)}}"><i class="fa-light fa-calendar-days"></i>{{Setting::getDate($event->created_at)}}</a> <a
+                                    href="{{ route('new_details', $event->id)}}"><i class="fa-regular fa-comments"></i>{{count($event->comments)}}</a></div>
+                            <h2 class="blog-title">{{$event->name}}</h2>
+                            <p>{{$event->text}}</p>
                             <blockquote>
-                                <p>Quote,</p><cite>Cite name</cite>
+                                <p>Quote,</p><cite>{{$event->qoute}}</cite>
                             </blockquote>
                         </div>
                     </div>
@@ -124,47 +122,25 @@
                         <div class="widget widget_categories">
                             <h3 class="widget_title">Categories<span class="shape"></span></h3>
                             <ul>
-                                <li><a href="#">Service name</a> <span>(10)</span></li>
-                                <li><a href="#">Service name</a> <span>(08)</span></li>
-                                <li><a href="#">Service name </a><span>(15)</span></li>
-                                <li><a href="#">Service name </a><span>(14)</span></li>
-                                <li><a href="#">Service name </a><span>(06)</span></li>
-                                <li><a href="#">Warehouse Storage </a><span>(10)</span></li>
+                                @foreach ($services as $service)
+                                    <li><a href="{{ route('service_details', $service->id)}}">{{$service->name}}</a> <span>{{$service->id}}</span></li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="widget">
                             <h3 class="widget_title">Recent Posts<span class="shape"></span></h3>
                             <div class="recent-post-wrap">
-                                <div class="recent-post">
-                                    <div class="media-img"><a href="blog-details.html"><img
-                                                src="{{ asset('assets/img/blog/recent-post-1-1.jpg')}}" alt="Blog Image"></a></div>
-                                    <div class="media-body">
-                                        <div class="recent-post-meta"><a href="blog.html"><i
-                                                    class="fal fa-calendar-days"></i>12 Jun, 2023</a></div>
-                                        <h4 class="post-title"><a class="text-inherit" href="blog-details.html">We set
-                                                the standards others try to live up to.</a></h4>
+                                @foreach ($events as $event)
+                                    <div class="recent-post">
+                                        <div class="media-img"><a href="{{ route('new_details', $event->id)}}"><img
+                                                    src="{{ asset('assets/img/'.$event->photo[0]->img_path)}}" alt="Blog Image"></a></div>
+                                        <div class="media-body">
+                                            <div class="recent-post-meta"><a href="blog.html"><i
+                                                        class="fal fa-calendar-days"></i>{{Setting::getDate($event->created_at)}}</a></div>
+                                            <h4 class="post-title"><a class="text-inherit" href="{{ route('new_details', $event->id)}}">{{  $event->text}}</a></h4>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="recent-post">
-                                    <div class="media-img"><a href="blog-details.html"><img
-                                                src="{{ asset('assets/img/blog/recent-post-1-2.jpg')}}" alt="Blog Image"></a></div>
-                                    <div class="media-body">
-                                        <div class="recent-post-meta"><a href="blog.html"><i
-                                                    class="fal fa-calendar-days"></i>22 Jun, 2023</a></div>
-                                        <h4 class="post-title"><a class="text-inherit" href="blog-details.html">We set
-                                                the standards others try to live up to.</a></h4>
-                                    </div>
-                                </div>
-                                <div class="recent-post">
-                                    <div class="media-img"><a href="blog-details.html"><img
-                                                src="{{ asset('assets/img/blog/recent-post-1-3.jpg')}}" alt="Blog Image"></a></div>
-                                    <div class="media-body">
-                                        <div class="recent-post-meta"><a href="blog.html"><i
-                                                    class="fal fa-calendar-days"></i>23 Jun, 2023</a></div>
-                                        <h4 class="post-title"><a class="text-inherit" href="blog-details.html">We set
-                                                the standards others try to live up to.</a></h4>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </aside>
